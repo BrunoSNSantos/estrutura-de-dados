@@ -47,10 +47,11 @@ printf("%d ", fila->vetor[i]);
 printf("]\n");
 }
 
-int obter_primeiro(struct fila *fila) {
-    int primeiro = fila->vetor[0];
-    printf("%d\n", primeiro);
-    return primeiro;
+int *obter_primeiro(struct fila *fila) {
+    if (fila->tam==0) {
+        return NULL;
+    }
+    return fila->vetor;
 }
 
 int esta_vazia(struct fila *fila) {
@@ -82,21 +83,21 @@ int main() {
     inserir(&fila1, 6);
     imprimir_fila(&fila1);
 
-    puts("Testando remover para a lista 1");
+    puts("Testando remover para a fila 1");
     remover(&fila1);
     imprimir_fila(&fila1);
 
     puts("Testando obter_primeiro para a fila 1");
     obter_primeiro(&fila1);
 
+    puts("Testando esta_vazia para a fila 2");
+    esta_vazia(&fila2);
+
     puts("Testando esta_vazia para a fila 1");
     esta_vazia(&fila1);
 
-    puts("Testando esta_cheia para a fila 1");
-    esta_cheia(&fila1);
-
-    puts("Testando tamanho para fila 1");
-    tamanho(&fila1);
+    puts("testando obter_primeiro para fila 1");
+    obter_primeiro(&fila1);
 
     return 0;
 }
