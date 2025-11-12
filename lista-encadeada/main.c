@@ -7,10 +7,10 @@ struct no {
 };
 
 void inserir_inicio(struct no **l, int valor) {
-    struct no *aux2 = malloc(sizeof(struct no));
-    aux2->valor = valor;
-    aux2->prox = *l;
-    *l = aux2;
+    struct no *aux = malloc(sizeof(struct no));
+    aux->valor = valor;
+    aux->prox = *l;
+    *l = aux;
 }
 
 void imprimir(struct no *l) {
