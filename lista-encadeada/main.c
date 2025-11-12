@@ -6,23 +6,30 @@ struct no {
     struct no *prox;
 };
 
+void inserir_inicio(struct no **l, int valor) {
+    struct no *aux2 = malloc(sizeof(struct no));
+    aux2->valor = valor;
+    aux2->prox = *l;
+    *l = aux2;
+}
+
+void imprimir(struct no *l) {
+    while (l != NULL) {
+        printf("%d -> ", l->valor);
+        l = l->prox;
+    }
+    printf("NULL\n");
+}
+
+
 int main() {
     struct no *lista = NULL;
-    struct no *e1;
 
-    e1=malloc(sizeof(struct no));
-    e1->valor = 3;
-    e1->prox = NULL;
-    lista = e1;
+    inserir_inicio(&lista, 3);
+    inserir_inicio(&lista, 5);
+    inserir_inicio(&lista, 7);
 
-    struct no *aux;
-    aux=malloc(sizeof(struct no));
-    aux->valor=5;
-    aux->prox=e1;
-    lista=aux;
-
-    free(e1);
-    free(aux);
+    imprimir(lista);
 
     return 0;
 }
