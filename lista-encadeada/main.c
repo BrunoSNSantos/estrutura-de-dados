@@ -21,6 +21,20 @@ void imprimir(struct no *l) {
     printf("NULL\n");
 }
 
+void inserir_fim(struct no **l, int valor) {
+    struct no *nvalor = malloc(sizeof(struct no));
+    nvalor->valor = valor;
+    nvalor->prox = NULL;
+
+    struct no *auxp;
+    auxp=*l;
+
+    while(auxp->prox!=NULL) {
+        auxp=auxp->prox;
+    }
+    auxp->prox=nvalor;
+}
+
 
 int main() {
     struct no *lista = NULL;
@@ -28,6 +42,10 @@ int main() {
     inserir_inicio(&lista, 3);
     inserir_inicio(&lista, 5);
     inserir_inicio(&lista, 7);
+
+    imprimir(lista);
+
+    inserir_fim(&lista, 9);
 
     imprimir(lista);
 
