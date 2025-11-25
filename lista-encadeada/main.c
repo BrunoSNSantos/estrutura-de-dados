@@ -68,6 +68,29 @@ void remover_fim(struct no **l) {
     return;
 }
 
+void remover_valor(struct no **l, int valor) {
+    if (*l == NULL) return;
+
+    struct no *auxp = *l;
+    struct no *ant = NULL;
+    
+    while (auxp != NULL && auxp->valor != valor) {
+        ant = auxp;
+        auxp = auxp->prox;
+    }
+
+    if (auxp == NULL) return;
+
+    if (ant == NULL) {
+        *l = auxp->prox;
+        free(auxp);
+        return;
+    }
+
+    ant->prox = auxp->prox;
+    free(auxp);
+}
+
 struct no *buscar(struct no **l, int valor) {
     struct no *auxp;
     auxp = *l;
@@ -102,6 +125,12 @@ int main() {
     imprimir(lista);
 
     remover_fim(&lista);
+    imprimir(lista);
+
+    remover_valor(&lista, 5);
+    imprimir(lista);
+
+    remover_valor(&lista, 10);
     imprimir(lista);
 
     return 0;
