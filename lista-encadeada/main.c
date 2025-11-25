@@ -35,6 +35,18 @@ void inserir_fim(struct no **l, int valor) {
     auxp->prox=nvalor;
 }
 
+void remover_inicio(struct no **l) {
+    if (*l == NULL) {
+        return;
+    }
+    
+    struct no *aux = *l;
+    *l = aux->prox;
+    free(aux);
+    
+    return *l;
+}
+
 struct no *buscar(struct no **l, int valor) {
     struct no *auxp;
     auxp = *l;
@@ -64,6 +76,9 @@ int main() {
     imprimir(lista);
 
     buscar(&lista, 1);
+
+    remover_inicio(&lista);
+    imprimir(lista);
 
     return 0;
 }
