@@ -6,19 +6,19 @@ struct no {
     struct no *prox;
 };
 
-void inserir_inicio(struct no **l, int valor) {
-    struct no *aux = malloc(sizeof(struct no));
-    aux->valor = valor;
-    aux->prox = *l;
-    *l = aux;
-}
-
 void imprimir(struct no *l) {
     while (l != NULL) {
         printf("%d -> ", l->valor);
         l = l->prox;
     }
     printf("NULL\n");
+}
+
+void inserir_inicio(struct no **l, int valor) {
+    struct no *aux = malloc(sizeof(struct no));
+    aux->valor = valor;
+    aux->prox = *l;
+    *l = aux;
 }
 
 void inserir_fim(struct no **l, int valor) {
@@ -35,6 +35,20 @@ void inserir_fim(struct no **l, int valor) {
     auxp->prox=nvalor;
 }
 
+struct no *buscar(struct no **l, int valor) {
+    struct no *auxp;
+    auxp = *l;
+
+    while(auxp != NULL) {
+        if (auxp->valor == valor) {
+            return auxp;
+        } 
+        auxp = auxp->prox;
+    }
+
+    return NULL;
+}
+
 
 int main() {
     struct no *lista = NULL;
@@ -48,6 +62,8 @@ int main() {
     inserir_fim(&lista, 9);
 
     imprimir(lista);
+
+    buscar(&lista, 1);
 
     return 0;
 }
