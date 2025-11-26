@@ -18,7 +18,8 @@ void inserir_inicio(struct no **l, int valor) {
     struct no *aux = malloc(sizeof(struct no));
     aux->valor = valor;
     aux->prox = *l;
-    *l = aux;
+   *l = aux;
+   return;
 }
 
 void inserir_fim(struct no **l, int valor) {
@@ -33,6 +34,7 @@ void inserir_fim(struct no **l, int valor) {
         auxp=auxp->prox;
     }
     auxp->prox=nvalor;
+    return;
 }
 
 void inserir_meio(struct no **l, int valor, int novo_valor) {
@@ -55,9 +57,7 @@ void inserir_meio(struct no **l, int valor, int novo_valor) {
 }
 
 struct no* remover_inicio(struct no **l) {
-    if (*l == NULL) {
-        return *l;
-    }
+    if (*l == NULL) return *l;
     
     struct no *aux = *l;
     *l = aux->prox;
@@ -108,6 +108,8 @@ void remover_valor(struct no **l, int valor) {
 
     ant->prox = auxp->prox;
     free(auxp);
+
+    return;
 }
 
 void alterar(struct no **l, int valor, int novo_valor) {
@@ -125,9 +127,9 @@ void alterar(struct no **l, int valor, int novo_valor) {
 }
 
 struct no *buscar(struct no **l, int valor) {
-    struct no *auxp;
-    auxp = *l;
+    if (*l == NULL ) return NULL;
 
+    struct no *auxp = *l;
     while(auxp != NULL) {
         if (auxp->valor == valor) {
             return auxp;
