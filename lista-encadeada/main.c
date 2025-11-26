@@ -126,15 +126,28 @@ void alterar(struct no **l, int valor, int novo_valor) {
     return;
 }
 
-struct no** l_ordenar(struct no **l) 
-{
+struct no* copiar(struct no **l) {
     struct no *nova_lista = NULL;
+    struct no *aux = *l;
+
+    while (aux != NULL) {
+        inserir_fim(&nova_lista, aux->valor);
+        aux = aux->prox;
+    }
+
+    return nova_lista;
+}
+
+struct no** ordenar(struct no **l) 
+{
+    struct no *nl = NULL;
 
     while (*l != NULL) {
+
         struct no *aux = *l;
         *l = (*l)->prox;
 
-        struct no *aux_p = nova_lista;  
+        struct no *aux_p = nl;  
         struct no *ant = NULL;
 
         while (aux_p != NULL && aux->valor > aux_p->valor) {
@@ -144,8 +157,8 @@ struct no** l_ordenar(struct no **l)
 
         // insere no começo
         if (ant == NULL) {
-            aux->prox = nova_lista;
-            nova_lista = aux;
+            aux->prox = nl;
+            nl = aux;
         }
         // insere no meio ou fim
         else {
@@ -154,25 +167,9 @@ struct no** l_ordenar(struct no **l)
         }
     }
 
-    *l = nova_lista;
+    *l = nl;
     return l;
 }
-
-struct no* l_copiar(struct no **l)
-{
-    struct no *nova_lista = NULL;
-    struct no *aux = *l;
-
-    while (aux != NULL) {
-        inserir_final(&nova_lista, aux->valor);
-        aux = aux->prox;
-    }
-
-    return nova_lista;
-}
-
-
-
 
 struct no *buscar(struct no **l, int valor) {
     if (*l == NULL ) return NULL;
@@ -188,6 +185,16 @@ struct no *buscar(struct no **l, int valor) {
     return NULL;
 }
 
+void liberar(struct no **l) {
+    struct no *auxp;
+
+    while (*l != NULL) {
+        auxp = *l;
+        *l = (*l)->prox;
+        free(auxp);
+    }
+}
+
 int main() {
     struct no *lista = NULL;
 
@@ -200,7 +207,7 @@ int main() {
     inserir_fim(&lista, 9);
     imprimir(lista);
 
-    l_ordenar(&lista);
+    ordenar(&lista);
     imprimir(lista);
 
     buscar(&lista, 1);
