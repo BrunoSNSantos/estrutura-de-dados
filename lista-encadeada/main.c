@@ -35,6 +35,25 @@ void inserir_fim(struct no **l, int valor) {
     auxp->prox=nvalor;
 }
 
+void inserir_meio(struct no **l, int valor, int novo_valor) {
+    if (*l == NULL) return;
+
+    struct no *auxp = *l;
+    while (auxp != NULL && auxp->valor != valor) {
+        auxp = auxp->prox;
+    }
+
+    if (auxp == NULL) return;
+
+    struct no *novo_no = malloc(sizeof(struct no));
+    novo_no->valor = novo_valor;
+
+    novo_no->prox = auxp->prox;
+    auxp->prox = novo_no;
+
+    return;
+}
+
 struct no* remover_inicio(struct no **l) {
     if (*l == NULL) {
         return *l;
@@ -150,6 +169,9 @@ int main() {
     imprimir(lista);
 
     alterar(&lista, 2, 2);
+    imprimir(lista);
+
+    inserir_meio(&lista, 10, 9);
     imprimir(lista);
 
     return 0;
