@@ -37,7 +37,7 @@ void inserir_fim(struct no **l, int valor) {
 
 struct no* remover_inicio(struct no **l) {
     if (*l == NULL) {
-        return;
+        return *l;
     }
     
     struct no *aux = *l;
@@ -91,6 +91,20 @@ void remover_valor(struct no **l, int valor) {
     free(auxp);
 }
 
+void alterar(struct no **l, int valor, int novo_valor) {
+    if (*l == NULL) return;
+
+    struct no *auxp = *l;
+
+    while (auxp != NULL && auxp->valor != valor) {
+        auxp = auxp->prox;
+    } 
+    if (auxp == NULL) return;
+
+    auxp->valor = novo_valor;
+    return;
+}
+
 struct no *buscar(struct no **l, int valor) {
     struct no *auxp;
     auxp = *l;
@@ -104,7 +118,6 @@ struct no *buscar(struct no **l, int valor) {
 
     return NULL;
 }
-
 
 int main() {
     struct no *lista = NULL;
@@ -131,6 +144,12 @@ int main() {
     imprimir(lista);
 
     remover_valor(&lista, 10);
+    imprimir(lista);
+
+    alterar(&lista, 3, 10);
+    imprimir(lista);
+
+    alterar(&lista, 2, 2);
     imprimir(lista);
 
     return 0;
