@@ -126,6 +126,54 @@ void alterar(struct no **l, int valor, int novo_valor) {
     return;
 }
 
+struct no** l_ordenar(struct no **l) 
+{
+    struct no *nova_lista = NULL;
+
+    while (*l != NULL) {
+        struct no *aux = *l;
+        *l = (*l)->prox;
+
+        struct no *aux_p = nova_lista;  
+        struct no *ant = NULL;
+
+        while (aux_p != NULL && aux->valor > aux_p->valor) {
+            ant = aux_p;
+            aux_p = aux_p->prox;
+        }
+
+        // insere no começo
+        if (ant == NULL) {
+            aux->prox = nova_lista;
+            nova_lista = aux;
+        }
+        // insere no meio ou fim
+        else {
+            ant->prox = aux;
+            aux->prox = aux_p;   // aux_p pode ser NULL → insere no fim
+        }
+    }
+
+    *l = nova_lista;
+    return l;
+}
+
+struct no* l_copiar(struct no **l)
+{
+    struct no *nova_lista = NULL;
+    struct no *aux = *l;
+
+    while (aux != NULL) {
+        inserir_final(&nova_lista, aux->valor);
+        aux = aux->prox;
+    }
+
+    return nova_lista;
+}
+
+
+
+
 struct no *buscar(struct no **l, int valor) {
     if (*l == NULL ) return NULL;
 
@@ -150,7 +198,9 @@ int main() {
     imprimir(lista);
 
     inserir_fim(&lista, 9);
+    imprimir(lista);
 
+    l_ordenar(&lista);
     imprimir(lista);
 
     buscar(&lista, 1);
@@ -167,13 +217,13 @@ int main() {
     remover_valor(&lista, 10);
     imprimir(lista);
 
-    alterar(&lista, 3, 10);
+    alterar(&lista, 7, 10);
     imprimir(lista);
 
-    alterar(&lista, 2, 2);
+    alterar(&lista, 2, 4);
     imprimir(lista);
 
-    inserir_meio(&lista, 10, 9);
+    inserir_meio(&lista, 10, 7);
     imprimir(lista);
 
     return 0;
