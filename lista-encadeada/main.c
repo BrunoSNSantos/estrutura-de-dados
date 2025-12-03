@@ -143,7 +143,6 @@ struct no** ordenar(struct no **l)
     struct no *nl = NULL;
 
     while (*l != NULL) {
-
         struct no *aux = *l;
         *l = (*l)->prox;
 
