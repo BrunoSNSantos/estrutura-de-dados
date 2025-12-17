@@ -22,3 +22,19 @@ void inserir_comeco(struct no **l, int valor) {
     *l = aux;
     return;
 }
+
+void inserir_fim(struct no **l, int valor) {
+    struct no *novo_no = malloc(sizeof(struct no));
+    novo_no->valor = valor;
+    novo_no->prox = NULL;
+
+    struct no *auxp = *l;
+
+    while(auxp->prox != NULL) {
+        auxp = auxp->prox;
+    }
+    auxp->prox = novo_no;
+    novo_no->ant = auxp;
+    
+    return;
+}
