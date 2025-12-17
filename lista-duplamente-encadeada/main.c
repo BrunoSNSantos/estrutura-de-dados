@@ -82,10 +82,21 @@ void remover (struct no **l, int valor) {
 
         return;
     }
-    
+
     auxp->ant->prox = auxp->prox;
     auxp->prox->ant = auxp->ant;
     free(auxp);
 
     return;
+}
+
+void mostrar(struct no **l) {
+    struct no *aux = *l;
+    printf("[ ");
+    while(aux != NULL) {
+        printf("%d ", aux->valor);
+        aux = aux->prox;
+    }
+
+    printf("] ");
 }
