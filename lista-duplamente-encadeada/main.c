@@ -7,11 +7,6 @@ struct no {
     struct no *prox;
 };
 
-struct tabela_hashing {
-    void **p;
-    int tamanho;
-};
-
 void inserir_comeco(struct no **l, int valor) {
     struct no *aux = malloc(sizeof(struct no));
     aux->valor = valor;
@@ -104,4 +99,55 @@ void mostrar(struct no **l) {
     }
 
     printf("] ");
+}
+
+struct tabela_hashing {
+    void **p;
+    int tamanho;
+};
+
+void th_iniciar(struct tabela_hashing *th, int tamanho) {
+    th->tamanho = tamanho;
+    th->p = malloc(th->tamanho * sizeof(int *));
+
+    for(int i; i < th->tamanho; i++) {
+        th->p[i] = NULL;
+    }
+}
+
+void th_inserir(struct tabela_hashing *th, int valor) {
+    int pos = valor % th->tamanho;
+    struct no **l = (struct no **)&th->p[pos];
+    inserir_comeco(l, valor);
+}
+
+
+void th_remover(struct tabela_hashing *th, int valor) { 
+    int pos = valor % th->tamanho;
+    struct no **l = (struct no **)&th->p[pos];
+    remover(l, valor);
+}
+
+void *th_pegar(struct tabela_hashing *th, int valor) {
+    int pos = valor % th->tamanho;
+    struct no **l = (struct no **)&th->p[pos];
+    return buscar(l, valor);
+}
+
+void th_mostrar(struct tabela_hashing *th) {
+    printf("{ tabela hashing:\n");
+    for (int i = 0; i < th->tamanho; i++) {
+        printf(" [%d]: ", i);
+        l_mostrar((struct no **)&th->p[i]);
+        printf("\n");
+    }
+    printf("}\n");
+}
+
+void th_finalizar(struct tabela_hashing *th) {
+    for (int i = 0; i < th->tamanho; i++) {
+        struct no **l = (struct no **)&th->p[i];
+        liberar_lista(l);
+    }
+    free(th->p);
 }
