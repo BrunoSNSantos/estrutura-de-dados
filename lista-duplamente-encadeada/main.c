@@ -44,3 +44,13 @@ void inserir_fim(struct no **l, int valor) {
     
     return;
 }
+
+struct no* buscar(struct no **l, int valor) {
+    if (*l == NULL) return NULL;
+
+    struct no *auxp = *l;
+    while (auxp && auxp->valor != valor) {
+        auxp = auxp->prox;
+    }
+    return auxp; 
+}
