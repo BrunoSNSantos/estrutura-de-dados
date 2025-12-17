@@ -101,6 +101,21 @@ void mostrar(struct no **l) {
     printf("] ");
 }
 
+void liberar(struct no **l) {
+    if (*l == NULL) return;
+
+    struct no *auxp = *l;
+    struct no *prox = *l;
+
+    while(auxp != NULL) {
+        prox = auxp->prox;
+        free(auxp);
+        auxp = prox;
+    }
+
+    *l = NULL;
+}
+
 struct tabela_hashing {
     void **p;
     int tamanho;
@@ -138,7 +153,7 @@ void th_mostrar(struct tabela_hashing *th) {
     printf("{ tabela hashing:\n");
     for (int i = 0; i < th->tamanho; i++) {
         printf(" [%d]: ", i);
-        l_mostrar((struct no **)&th->p[i]);
+        mostrar((struct no **)&th->p[i]);
         printf("\n");
     }
     printf("}\n");
@@ -147,7 +162,7 @@ void th_mostrar(struct tabela_hashing *th) {
 void th_finalizar(struct tabela_hashing *th) {
     for (int i = 0; i < th->tamanho; i++) {
         struct no **l = (struct no **)&th->p[i];
-        liberar_lista(l);
+        liberar(l);
     }
     free(th->p);
 }
