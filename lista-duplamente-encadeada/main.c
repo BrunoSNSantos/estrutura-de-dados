@@ -7,6 +7,11 @@ struct no {
     struct no *prox;
 };
 
+struct tabela_hashing {
+    void **p;
+    int tamanho;
+};
+
 void inserir_comeco(struct no **l, int valor) {
     struct no *aux = malloc(sizeof(struct no));
     aux->valor = valor;
