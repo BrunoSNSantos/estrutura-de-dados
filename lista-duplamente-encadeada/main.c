@@ -28,8 +28,14 @@ void inserir_fim(struct no **l, int valor) {
     novo_no->valor = valor;
     novo_no->prox = NULL;
 
-    struct no *auxp = *l;
+    if (*l == NULL) {
+        novo_no->ant = NULL;
+        *l = novo_no;
 
+        return;
+    }
+
+    struct no *auxp = *l;
     while(auxp->prox != NULL) {
         auxp = auxp->prox;
     }
