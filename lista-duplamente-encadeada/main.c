@@ -54,3 +54,38 @@ struct no* buscar(struct no **l, int valor) {
     }
     return auxp; 
 }
+
+void remover (struct no **l, int valor) {
+    if (*l == NULL) return;
+
+    struct no *auxp = *l;
+
+    while (auxp && auxp->valor != valor) {
+        auxp = auxp->prox;
+    }
+
+    if (auxp == NULL) return;
+
+    if (auxp->ant == NULL) {
+        *l = auxp->prox;
+        if (auxp->prox != NULL) {
+            auxp->prox->ant = NULL;
+        }
+        free(auxp);
+
+        return;
+    }
+
+    if (auxp->prox == NULL) {
+        auxp->ant->prox = NULL;
+        free(auxp);
+
+        return;
+    }
+    
+    auxp->ant->prox = auxp->prox;
+    auxp->prox->ant = auxp->ant;
+    free(auxp);
+
+    return;
+}
